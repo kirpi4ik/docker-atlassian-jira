@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Check if we are on the master branch aka the builder branch that updates to
+# latest version on every run and deployment script will create new branch if
+# the version has changed.
+if [[ "$(git rev-parse --abbrev-ref HEAD)" != "master" ]]; then
+	echo "Not master branch... skipping preparation"
+	exit 0
+fi
+
 echo "Obtaining Altassian JIRA version information..."
 
 # Obtain the currently latest version of Atlassian JIRA version defined by the
